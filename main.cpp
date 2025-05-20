@@ -16,7 +16,10 @@ int main(int argv, char** argc){
   
   ifstream cardFile1 (argc[1]);
   ifstream cardFile2 (argc[2]);
-  string line;
+  string line;  
+
+  BST Alice;
+  BST Bob;
 
   if (cardFile1.fail() || cardFile2.fail() ){
     cout << "Could not open file " << argc[2];
@@ -25,16 +28,30 @@ int main(int argv, char** argc){
 
   //Read each file
   while (getline (cardFile1, line) && (line.length() > 0)){
-
+    char suit = line[0];
+    string value = line.substr(2);
+    Card card(suit,value);
+    Alice.insert(card);
   }
   cardFile1.close();
 
 
   while (getline (cardFile2, line) && (line.length() > 0)){
-
+    char suit = line[0];
+    string value = line.substr(2);
+    Card card(suit,value);
+    Bob.insert(card);
   }
   cardFile2.close();
-  
+
+  playGame(Alice,Bob);
+  cout << endl;
+  cout << "Alice's cards: " << endl;
+  Alice.printDeck();
+
+  cout << endl;
+  cout << "Bob's cards: " << endl;
+  Bob.printDeck();
   
   return 0;
 }
